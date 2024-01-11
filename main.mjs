@@ -14,7 +14,7 @@ app.get("/", async (request, response) => {
   const html = template.replace(
     "<!-- posts -->",
     posts.filter((post) => post.message !== ""
-    ).map((post) => `<button type="button" id="increment">♥</button><div>${escapeHTML(post.message)}</div>`
+    ).map((post) => `<button type="button" class="increment">♥</button><div>${escapeHTML(post.message)}</div>`
     ).join("<br>"),
   );
   response.send(html);
