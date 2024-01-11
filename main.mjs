@@ -13,10 +13,14 @@ app.get("/", async (request, response) => {
   const posts = await prisma.post.findMany();
   const html = template.replace(
     "<!-- posts -->",
-    posts.map((post) => `<button type="button" id="increment">♥</button>${escapeHTML(post.message)}`).join("\n"),
+    posts.filter((post) => post.message !== ""
+    ).map((post) => `<button type="button" id="increment">♥</button><div>${escapeHTML(post.message)}</div>`
+    ).join("<br>"),
   );
   response.send(html);
 });
+
+
 
 app.post("/send", async (request, response) => {
   await prisma.post.create({
